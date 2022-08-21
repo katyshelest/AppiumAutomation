@@ -19,11 +19,11 @@ class FirstTest {
         capabilities.setCapability("deviceName", "Nexus_5")
         capabilities.setCapability("platformVersion", "10.0")
         capabilities.setCapability("automationName", "Appium")
-        capabilities.setCapability("appPackage", "org.Wikipedia")
+        capabilities.setCapability("appPackage", "org.wikipedia")
         capabilities.setCapability("appActivity", ".main.MainActivity")
-        capabilities.setCapability("app", "/Users/okhlopkovaekaterina/Desktop/JavaAppiumAutomation/apks/wiki.apk")
+        capabilities.setCapability("app", "/Users/okhlopkovaekaterina/Desktop/JavaAppiumAutomation/apks/org.wikipedia.apk")
 
-        driver = AndroidDriver(URL("http://127.0.0.1:4723/ws/hub"), capabilities)
+        driver = AndroidDriver(URL("http://127.0.0.1:4723/wd/hub"), capabilities)
         }
 
     @After
