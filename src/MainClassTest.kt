@@ -1,7 +1,5 @@
 import org.junit.Test
-import kotlin.test.assertContains
-import kotlin.test.assertEquals
-import kotlin.test.assertTrue
+import kotlin.test.*
 
 class MainClassTest : MainClass() {
     @Test
@@ -18,12 +16,12 @@ class MainClassTest : MainClass() {
 
     @Test
     fun testGetClassString() {
-        val word = "hello"
+        val word = "[Hh]ello".toRegex()
+
         assertContains(
             getClassString(),
             word,
-            ignoreCase = true,
-            message = "Error. '${getClassString()}' is not contains '$word'"
+            message = "Error. '${getClassString()}' is not contains 'Hello' or 'hello'"
         )
     }
 }
