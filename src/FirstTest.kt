@@ -135,7 +135,7 @@ class FirstTest {
         waitForElementAndCheckContainsText(
             By.xpath("//*[@class='android.view.ViewGroup'][@index='3']//*[@resource-id='org.wikipedia:id/page_list_item_title']"),
             "[Aa]ir".toRegex(),
-            "Cannot find second result of searching",
+            "Cannot find third result of searching",
             15
         )
     }
