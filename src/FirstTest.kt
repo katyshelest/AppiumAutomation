@@ -97,6 +97,49 @@ class FirstTest {
         )
     }
 
+    @Test
+    fun checkSearchResults() {
+        waitForElementAndClick(
+            By.id("org.wikipedia:id/fragment_onboarding_skip_button"),
+            "Cannot find button 'Skip'",
+            5
+        )
+
+        waitForElementAndClick(
+            By.xpath("//*[contains(@text,'Search Wikipedia')]"),
+            "Cannot find main search line",
+            5
+        )
+
+        waitForElementAndSendKeys(
+            By.id("org.wikipedia:id/search_src_text"),
+            "air",
+            "Cannot find inside search line",
+            5
+        )
+
+        waitForElementAndCheckContainsText(
+            By.xpath("//*[@class='android.view.ViewGroup'][@index='1']//*[@resource-id='org.wikipedia:id/page_list_item_title']"),
+            "[Aa]ir".toRegex(),
+            "Cannot find first result of searching",
+            15
+        )
+
+        waitForElementAndCheckContainsText(
+            By.xpath("//*[@class='android.view.ViewGroup'][@index='2']//*[@resource-id='org.wikipedia:id/page_list_item_title']"),
+            "[Aa]ir".toRegex(),
+            "Cannot find second result of searching",
+            15
+        )
+
+        waitForElementAndCheckContainsText(
+            By.xpath("//*[@class='android.view.ViewGroup'][@index='3']//*[@resource-id='org.wikipedia:id/page_list_item_title']"),
+            "[Aa]ir".toRegex(),
+            "Cannot find second result of searching",
+            15
+        )
+    }
+
     private fun waitForElementPresent(by: By, errorMessage: String, timeout: Long): WebElement {
         val wait = WebDriverWait(driver, timeout)
         wait.withMessage(errorMessage + "\n")
@@ -139,5 +182,11 @@ class FirstTest {
         val element: WebElement = waitForElementPresent(by, errorMessage, timeout)
         element.clear()
         return element
+    }
+
+    private fun waitForElementAndCheckContainsText(by: By, text: Regex, errorMessage: String, timeout: Long) {
+        val element: WebElement = waitForElementPresent(by, errorMessage, timeout)
+        val textElement = element.text
+        assertTrue("'${textElement}' not contains '${text}'", textElement.contains(text))
     }
 }
