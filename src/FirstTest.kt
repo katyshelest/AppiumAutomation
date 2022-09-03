@@ -51,6 +51,52 @@ class FirstTest {
         )
     }
 
+    @Test
+    fun checkCancelSearch() {
+        waitForElementAndClick(
+            By.id("org.wikipedia:id/fragment_onboarding_skip_button"),
+            "Cannot find button 'Skip'",
+            5
+        )
+
+        waitForElementAndClick(
+            By.xpath("//*[contains(@text,'Search Wikipedia')]"),
+            "Cannot find main search line",
+            5
+        )
+
+        waitForElementAndSendKeys(
+            By.id("org.wikipedia:id/search_src_text"),
+            "forest",
+            "Cannot find inside search line",
+            5
+        )
+
+        waitForElementPresent(
+            By.xpath("(//*[@class='android.view.ViewGroup'])[1]"),
+            "Cannot find first result of searching",
+            15
+        )
+
+        waitForElementPresent(
+            By.xpath("(//*[@class='android.view.ViewGroup'])[2]"),
+            "Cannot find second result of searching",
+            15
+        )
+
+        waitForElementAndClear(
+            By.id("org.wikipedia:id/search_src_text"),
+            "Cannot find inside search line",
+            5
+        )
+
+        waitForElementPresent(
+            By.id("org.wikipedia:id/search_empty_message"),
+            "Search results is not empty",
+            15
+        )
+    }
+
     private fun waitForElementPresent(by: By, errorMessage: String, timeout: Long): WebElement {
         val wait = WebDriverWait(driver, timeout)
         wait.withMessage(errorMessage + "\n")
@@ -75,5 +121,23 @@ class FirstTest {
             text,
             textElement
         )
+    }
+
+    private fun waitForElementAndSendKeys(by: By, text: String, errorMessage: String, timeout: Long): WebElement {
+        val element: WebElement = waitForElementPresent(by, errorMessage, timeout)
+        element.sendKeys(text)
+        return element
+    }
+
+    private fun waitForElementNotPresent(by: By, errorMessage: String, timeout: Long): Boolean {
+        val wait = WebDriverWait(driver, timeout)
+        wait.withMessage(errorMessage + "\n")
+        return wait.until(ExpectedConditions.invisibilityOfElementLocated(by))
+    }
+
+    private fun waitForElementAndClear(by: By, errorMessage: String, timeout: Long): WebElement {
+        val element: WebElement = waitForElementPresent(by, errorMessage, timeout)
+        element.clear()
+        return element
     }
 }
