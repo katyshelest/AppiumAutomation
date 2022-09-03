@@ -1,5 +1,8 @@
 import org.junit.Test
-import kotlin.test.*
+
+import kotlin.test.assertContains
+import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 class MainClassTest : MainClass() {
     @Test
