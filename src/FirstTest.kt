@@ -8,6 +8,7 @@ import org.junit.Test
 import org.openqa.selenium.By
 import org.openqa.selenium.Dimension
 import org.openqa.selenium.TimeoutException
+import org.openqa.selenium.WebDriverException
 import org.openqa.selenium.WebElement
 import org.openqa.selenium.remote.DesiredCapabilities
 import org.openqa.selenium.support.ui.ExpectedConditions
@@ -304,8 +305,10 @@ class FirstTest {
         return wait.until(ExpectedConditions.presenceOfElementLocated(by))
     }
 
-    private fun waitForElementPresent(by: By, errorMessage: String): WebElement {
-        return waitForElementPresent(by, errorMessage, 5)
+    private fun elementPresent(by: By, errorMessage: String): WebElement {
+        val wait = WebDriverWait(driver, 0)
+        wait.withMessage(errorMessage + "\n")
+        return wait.until(ExpectedConditions.presenceOfElementLocated(by))
     }
 
     private fun waitForElementAndClick(by: By, errorMessage: String, timeout: Long): WebElement {
@@ -414,6 +417,6 @@ class FirstTest {
     }
 
     private fun assertElementPresent(by: By, errorMessage: String): WebElement {
-        return waitForElementPresent(by, errorMessage, 0)
+        return elementPresent(by, errorMessage)
     }
 }
